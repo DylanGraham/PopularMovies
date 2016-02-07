@@ -18,6 +18,8 @@ public class MovieFragment extends Fragment {
             new MovieItem("The Martian", "7.1", R.drawable.the_martian),
             new MovieItem("The Martian", "7.1", R.drawable.the_martian),
             new MovieItem("The Martian", "7.1", R.drawable.the_martian),
+            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
+            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
             new MovieItem("The Martian", "7.1", R.drawable.the_martian)
     };
 
