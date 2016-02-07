@@ -9,6 +9,10 @@
 
 # Add any project specific keep options here:
 
+# Debugger available for fragments
+-keep public class * extends android.support.v4.** {*;}
+-keep public class * extends android.app.Fragment
+
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
