@@ -4,7 +4,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,12 +15,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class FetchMovieDataTask extends AsyncTask<String, Void, String[]> {
+public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
 
     private final String LOG_TAG = FetchMovieDataTask.class.getSimpleName();
 
     @Override
-    protected String[] doInBackground(String... params) {
+    protected String[] doInBackground(Void... params) {
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
         HttpURLConnection urlConnection = null;
@@ -75,7 +77,7 @@ public class FetchMovieDataTask extends AsyncTask<String, Void, String[]> {
             }
             movieJsonStr = buffer.toString();
 
-            Log.v(LOG_TAG, "JSON String: " + movieJsonStr);
+            //Log.v(LOG_TAG, "JSON String: " + movieJsonStr);
 
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
@@ -95,7 +97,6 @@ public class FetchMovieDataTask extends AsyncTask<String, Void, String[]> {
             }
         }
 
-        // Create method here to extract data from JSON
         try {
             return getMovieDataFromJson(movieJsonStr);
         } catch (JSONException e) {
@@ -108,7 +109,27 @@ public class FetchMovieDataTask extends AsyncTask<String, Void, String[]> {
     }
 
     private String[] getMovieDataFromJson(String movieJsonStr) throws JSONException {
-        String [] temp = {"MOVIE DATA FROM JSON"};
-        return temp;
+
+        final String MDB_LIST = "results";
+        final String MDB_ID = "id";
+        final String MDB_TITLE = "original_title";
+        final String MDB_POPULARITY = "popularity";
+        final String MDB_POSTER_PATH = "poster_path";
+        final String MDB_BACKDROP_PATH = "backdrop_path";
+        final String MDB_OVERVIEW = "overview";
+        final String MDB_VOTE_AVERAGE = "vote_average";
+        final String MDB_RELEASE_DATE = "release_date";
+
+        JSONObject movieJson = new JSONObject(movieJsonStr);
+        JSONArray movieArray = movieJson.getJSONArray(MDB_LIST);
+        Log.v(LOG_TAG, "movieArray.length: " + movieArray.length());
+
+        //JSONObject movieObject =
+        Log.v(LOG_TAG, "movieArray: " + movieArray.toString());
+
+
+
+
+        return null;
     }
 }
