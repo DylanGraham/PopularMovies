@@ -15,7 +15,10 @@ public class MovieFragment extends Fragment {
     private MovieAdapter movieAdapter;
 
     MovieItem[] movieItems = {
-      new MovieItem("The Martian", "7.1", R.drawable.the_martian)
+            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
+            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
+            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
+            new MovieItem("The Martian", "7.1", R.drawable.the_martian)
     };
 
     public MovieFragment() {
@@ -33,8 +36,6 @@ public class MovieFragment extends Fragment {
 
         return rootView;
     }
-
-
 
 
 }
