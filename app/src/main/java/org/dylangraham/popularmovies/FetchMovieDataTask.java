@@ -122,11 +122,15 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
 
         JSONObject movieJson = new JSONObject(movieJsonStr);
         JSONArray movieArray = movieJson.getJSONArray(MDB_LIST);
-        Log.v(LOG_TAG, "movieArray.length: " + movieArray.length());
 
-        //JSONObject movieObject =
-        Log.v(LOG_TAG, "movieArray: " + movieArray.toString());
+        //Log.v(LOG_TAG, "movieArray.length: " + movieArray.length());
 
+        for (int i = 0; i < movieArray.length(); i++) {
+            // Get the current JSON object
+            JSONObject movieObject = movieArray.getJSONObject(i);
+
+            Log.v(LOG_TAG, "Movie title: " + movieObject.getString(MDB_TITLE));
+        }
 
 
 
