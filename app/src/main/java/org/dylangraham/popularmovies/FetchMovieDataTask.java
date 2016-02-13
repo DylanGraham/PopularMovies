@@ -71,7 +71,7 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
             }
 
             if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
+                // Stream was empty. No point in parsing.
                 return null;
             }
             movieJsonStr = buffer.toString();
@@ -134,5 +134,13 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
 
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String[] result) {
+        super.onPostExecute(result);
+        if (result != null) {
+
+        }
     }
 }
