@@ -32,7 +32,6 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
         // Values that can be changed by the user in prefs eventually
         String sort = "popularity.desc";
 
-        // CURL: "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=5bf5f3259ead9960289eea2a1f6d29b2"
         try {
             // Construct the URL
             final String BASE_URL = "http://api.themoviedb.org/3/discover/movie/?";
@@ -72,7 +71,7 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
             }
 
             if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
+                // Stream was empty. No point in parsing.
                 return null;
             }
             movieJsonStr = buffer.toString();
@@ -135,5 +134,13 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
 
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String[] result) {
+        super.onPostExecute(result);
+        if (result != null) {
+
+        }
     }
 }

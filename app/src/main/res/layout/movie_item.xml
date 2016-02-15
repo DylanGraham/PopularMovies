@@ -6,8 +6,4 @@
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:id="@+id/movie_image"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/movie_text"/>
 </FrameLayout>
