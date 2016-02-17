@@ -15,14 +15,7 @@ public class MovieFragment extends Fragment {
 
     private MovieAdapter movieAdapter;
 
-    MovieItem[] movieItems = {
-            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
-            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
-            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
-            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
-            new MovieItem("The Martian", "7.1", R.drawable.the_martian),
-            new MovieItem("The Martian", "7.1", R.drawable.the_martian)
-    };
+    MovieItem[] movieItems;
 
     public MovieFragment() {
     }
