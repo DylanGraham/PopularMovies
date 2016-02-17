@@ -4,7 +4,6 @@ package org.dylangraham.popularmovies;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -44,7 +43,7 @@ public class MovieFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        updateMovies();
+        updateMovies(movieItems);
     }
 
     private void updateMovies(MovieItem[] movieItems) {
