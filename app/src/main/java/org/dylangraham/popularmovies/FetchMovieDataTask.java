@@ -128,7 +128,14 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
             // Get the current JSON object
             JSONObject movieObject = movieArray.getJSONObject(i);
 
+            String title = movieObject.getString(MDB_TITLE);
+            String rating = movieObject.getString(MDB_VOTE_AVERAGE);
+            
+            //Log.v(LOG_TAG, "Movie poster: " + movieObject.getString(MDB_POSTER_PATH));
+
             Log.v(LOG_TAG, "Movie title: " + movieObject.getString(MDB_TITLE));
+            Log.v(LOG_TAG, "Movie rating: " + movieObject.getString(MDB_VOTE_AVERAGE));
+            Log.v(LOG_TAG, "Movie poster: " + movieObject.getString(MDB_POSTER_PATH));
         }
 
 
@@ -139,8 +146,9 @@ public class FetchMovieDataTask extends AsyncTask<Void, Void, String[]> {
     @Override
     protected void onPostExecute(String[] result) {
         super.onPostExecute(result);
-        if (result != null) {
+/*        if (result != null) {
 
         }
+*/
     }
 }
