@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,15 +23,17 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MovieFragment extends Fragment {
 
     private MovieAdapter movieAdapter;
 
-    MovieItem[] movieItems;
+    ArrayList<MovieItem> movieItems = new ArrayList<MovieItem>();
 
     public MovieFragment() {
+        movieItems.add(new MovieItem("Test", "8.8", "http://some/path/to/poster.png"));
     }
 
     @Override
@@ -48,8 +48,8 @@ public class MovieFragment extends Fragment {
         updateMovies(movieItems);
     }
 
-    private void updateMovies(MovieItem[] movieItems) {
-        FetchMovieDataTask movieDataTask = new FetchMovieDataTask(movieItems);
+    private void updateMovies(ArrayList<MovieItem> movieItems) {
+        FetchMovieDataTask movieDataTask = new FetchMovieDataTask();
         movieDataTask.execute();
     }
 
@@ -58,7 +58,7 @@ public class MovieFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        movieAdapter = new MovieAdapter(getActivity(), Arrays.asList(movieItems));
+        movieAdapter = new MovieAdapter(getActivity(), movieItems);
 
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
         gridView.setAdapter(movieAdapter);
@@ -66,18 +66,15 @@ public class MovieFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchMovieDataTask extends AsyncTask<Void, Void, MovieItem[]> {
+    public class FetchMovieDataTask extends AsyncTask<ArrayList<MovieItem>, Void, ArrayList<MovieItem>> {
 
         private final String LOG_TAG = FetchMovieDataTask.class.getSimpleName();
-        private final WeakReference<MovieItem[]> movieItemReference;
 
-        public FetchMovieDataTask(MovieItem[] movieItems) {
-            movieItemReference = new WeakReference<>(movieItems);
-
+        public FetchMovieDataTask() {
         }
 
         @Override
-        protected MovieItem[] doInBackground(Void... params) {
+        protected ArrayList<MovieItem> doInBackground(ArrayList<MovieItem>... params) {
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
@@ -154,7 +151,7 @@ public class MovieFragment extends Fragment {
             }
 
             try {
-                return getMovieDataFromJson(movieJsonStr);
+                return getMovieDataFromJson(movieJsonStr, movieItems);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
@@ -164,7 +161,7 @@ public class MovieFragment extends Fragment {
             return null;
         }
 
-        private MovieItem[] getMovieDataFromJson(String movieJsonStr) throws JSONException {
+        private MovieItem[] getMovieDataFromJson(String movieJsonStr, MovieItem[] movieItems) throws JSONException {
 
             final String MDB_LIST = "results";
             final String MDB_ID = "id";
@@ -189,6 +186,8 @@ public class MovieFragment extends Fragment {
                 String rating = movieObject.getString(MDB_POPULARITY);
                 String posterPath = movieObject.getString(MDB_POSTER_PATH);
                 String imageURL = "http://image.tmdb.org/t/p/w185" + posterPath;
+
+                //movieItems
 
                 Log.v(LOG_TAG, title + rating + imageURL);
 
