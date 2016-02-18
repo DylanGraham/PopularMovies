@@ -185,8 +185,13 @@ public class MovieFragment extends Fragment {
                 // Get the current JSON object
                 JSONObject movieObject = movieArray.getJSONObject(i);
 
+                String title = movieObject.getString(MDB_TITLE);
+                String rating = movieObject.getString(MDB_POPULARITY);
+                String posterPath = movieObject.getString(MDB_POSTER_PATH);
+                String imageURL = "http://image.tmdb.org/t/p/w185" + posterPath;
 
-                Log.v(LOG_TAG, "Movie title: " + movieObject.getString(MDB_TITLE));
+                Log.v(LOG_TAG, title + rating + imageURL);
+
             }
 
 
