@@ -1,6 +1,7 @@
 package org.dylangraham.popularmovies;
 
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +34,7 @@ public class MovieFragment extends Fragment {
 
     private MovieAdapter movieAdapter;
 
-    ArrayList<MovieItem> movieItems = new ArrayList<MovieItem>();
+    ArrayList<MovieItem> movieItems = new ArrayList<>();
 
     public MovieFragment() {
         movieItems.add(new MovieItem("Test", "8.8", "http://some/path/to/poster.png"));
@@ -45,11 +49,10 @@ public class MovieFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        updateMovies(movieItems);
     }
 
-    private void updateMovies(ArrayList<MovieItem> movieItems) {
-        FetchMovieDataTask movieDataTask = new FetchMovieDataTask();
+    private void updateMovies(ArrayList<MovieItem> movieItems, View rootView, Context context) {
+        FetchMovieDataTask movieDataTask = new FetchMovieDataTask(context, rootView);
         movieDataTask.execute();
     }
 
@@ -63,14 +66,20 @@ public class MovieFragment extends Fragment {
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
         gridView.setAdapter(movieAdapter);
 
+        updateMovies(movieItems, rootView, getContext());
+
         return rootView;
     }
 
     public class FetchMovieDataTask extends AsyncTask<ArrayList<MovieItem>, Void, ArrayList<MovieItem>> {
 
         private final String LOG_TAG = FetchMovieDataTask.class.getSimpleName();
+        private Context mContext;
+        private View rootView;
 
-        public FetchMovieDataTask() {
+        public FetchMovieDataTask(Context context, View rootView) {
+            this.mContext = context;
+            this.rootView = rootView;
         }
 
         @Override
@@ -161,7 +170,7 @@ public class MovieFragment extends Fragment {
             return null;
         }
 
-        private MovieItem[] getMovieDataFromJson(String movieJsonStr, MovieItem[] movieItems) throws JSONException {
+        private ArrayList<MovieItem> getMovieDataFromJson(String movieJsonStr, ArrayList<MovieItem> movieItems) throws JSONException {
 
             final String MDB_LIST = "results";
             final String MDB_ID = "id";
@@ -176,8 +185,6 @@ public class MovieFragment extends Fragment {
             JSONObject movieJson = new JSONObject(movieJsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MDB_LIST);
 
-            //Log.v(LOG_TAG, "movieArray.length: " + movieArray.length());
-
             for (int i = 0; i < movieArray.length(); i++) {
                 // Get the current JSON object
                 JSONObject movieObject = movieArray.getJSONObject(i);
@@ -187,31 +194,25 @@ public class MovieFragment extends Fragment {
                 String posterPath = movieObject.getString(MDB_POSTER_PATH);
                 String imageURL = "http://image.tmdb.org/t/p/w185" + posterPath;
 
-                //movieItems
+                movieItems.add(new MovieItem(title, rating, imageURL));
 
                 Log.v(LOG_TAG, title + rating + imageURL);
 
             }
-
-
-
             return null;
         }
 
         @Override
-        protected void onPostExecute(MovieItem[] result) {
+        protected void onPostExecute(ArrayList<MovieItem> result) {
             super.onPostExecute(result);
-            if (movieItemReference != null && result != null) {
-                final MovieItem[] movieItems = movieItemReference.get();
-                if (movieItems != null) {
-                    movieAdapter.clear();
-                    // Do stuff with movie items and adapter here!
+            if (result != null) {
+                movieAdapter.clear();
+                for (int i = 0; i < result.size(); i++) {
+                    ImageView imageView = (ImageView) rootView.findViewById(R.id.movie_image);
+                    Picasso.with(mContext).load(result.get(i).imageURL).into(imageView);
+                    movieAdapter.add(result.get(i));
                 }
-
-
             }
         }
     }
-
-
 }
