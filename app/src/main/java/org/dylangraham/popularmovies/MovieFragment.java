@@ -191,7 +191,7 @@ public class MovieFragment extends Fragment {
 
                 resultItems.add(new MovieItem(title, rating, imageURL));
 
-                Log.v(LOG_TAG, title + rating + imageURL);
+                //Log.v(LOG_TAG, title + rating + imageURL);
 
             }
             return resultItems;
