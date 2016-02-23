@@ -1,7 +1,6 @@
 package org.dylangraham.popularmovies;
 
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,9 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,20 +20,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MovieFragment extends Fragment {
 
     private MovieAdapter movieAdapter;
-
     ArrayList<MovieItem> movieItems = new ArrayList<>();
 
     public MovieFragment() {
-        movieItems.add(new MovieItem("Test", "8.8", "http://some/path/to/poster.png"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
+        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
     }
 
     @Override
@@ -51,8 +53,8 @@ public class MovieFragment extends Fragment {
         super.onStart();
     }
 
-    private void updateMovies(ArrayList<MovieItem> movieItems, View rootView, Context context) {
-        FetchMovieDataTask movieDataTask = new FetchMovieDataTask(context, rootView);
+    private void updateMovies() {
+        FetchMovieDataTask movieDataTask = new FetchMovieDataTask();
         movieDataTask.execute();
     }
 
@@ -66,24 +68,21 @@ public class MovieFragment extends Fragment {
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
         gridView.setAdapter(movieAdapter);
 
-        updateMovies(movieItems, rootView, getContext());
+        updateMovies();
 
         return rootView;
     }
 
-    public class FetchMovieDataTask extends AsyncTask<ArrayList<MovieItem>, Void, ArrayList<MovieItem>> {
+    public class FetchMovieDataTask extends AsyncTask<String, Void, ArrayList<MovieItem>> {
 
         private final String LOG_TAG = FetchMovieDataTask.class.getSimpleName();
-        private Context mContext;
-        private View rootView;
 
-        public FetchMovieDataTask(Context context, View rootView) {
-            this.mContext = context;
-            this.rootView = rootView;
-        }
+
+        public FetchMovieDataTask() {
+            }
 
         @Override
-        protected ArrayList<MovieItem> doInBackground(ArrayList<MovieItem>... params) {
+        protected ArrayList<MovieItem> doInBackground(String... params) {
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
@@ -160,7 +159,7 @@ public class MovieFragment extends Fragment {
             }
 
             try {
-                return getMovieDataFromJson(movieJsonStr, movieItems);
+                return getMovieDataFromJson(movieJsonStr);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
@@ -170,7 +169,7 @@ public class MovieFragment extends Fragment {
             return null;
         }
 
-        private ArrayList<MovieItem> getMovieDataFromJson(String movieJsonStr, ArrayList<MovieItem> movieItems) throws JSONException {
+        private ArrayList<MovieItem> getMovieDataFromJson(String movieJsonStr) throws JSONException {
 
             final String MDB_LIST = "results";
             final String MDB_ID = "id";
@@ -199,18 +198,16 @@ public class MovieFragment extends Fragment {
                 Log.v(LOG_TAG, title + rating + imageURL);
 
             }
-            return null;
+            return movieItems;
         }
 
         @Override
         protected void onPostExecute(ArrayList<MovieItem> result) {
             super.onPostExecute(result);
             if (result != null) {
-                movieAdapter.clear();
-                for (int i = 0; i < result.size(); i++) {
-                    ImageView imageView = (ImageView) rootView.findViewById(R.id.movie_image);
-                    Picasso.with(mContext).load(result.get(i).imageURL).into(imageView);
-                    movieAdapter.add(result.get(i));
+                //movieAdapter.clear();
+                for (MovieItem movieItem : result) {
+                    movieAdapter.add(movieItem);
                 }
             }
         }
