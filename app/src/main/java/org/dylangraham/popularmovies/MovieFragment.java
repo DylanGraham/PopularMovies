@@ -27,25 +27,19 @@ import java.util.ArrayList;
 public class MovieFragment extends Fragment {
 
     private MovieAdapter movieAdapter;
-    ArrayList<MovieItem> movieItems = new ArrayList<>();
+    private ArrayList<MovieItem> movieItems;
 
     public MovieFragment() {
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
-        movieItems.add(new MovieItem("Test", "8.8", "http://image.tmdb.org/t/p/w185/cWERd8rgbw7bCMZlwP207HUXxym.jpg"));
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        if(savedInstanceState == null) {
+            movieItems = new ArrayList<>();
+        }
+
     }
 
     @Override
@@ -184,6 +178,8 @@ public class MovieFragment extends Fragment {
             JSONObject movieJson = new JSONObject(movieJsonStr);
             JSONArray movieArray = movieJson.getJSONArray(MDB_LIST);
 
+            ArrayList<MovieItem> resultItems = new ArrayList<>();
+
             for (int i = 0; i < movieArray.length(); i++) {
                 // Get the current JSON object
                 JSONObject movieObject = movieArray.getJSONObject(i);
@@ -193,12 +189,12 @@ public class MovieFragment extends Fragment {
                 String posterPath = movieObject.getString(MDB_POSTER_PATH);
                 String imageURL = "http://image.tmdb.org/t/p/w185" + posterPath;
 
-                movieItems.add(new MovieItem(title, rating, imageURL));
+                resultItems.add(new MovieItem(title, rating, imageURL));
 
                 Log.v(LOG_TAG, title + rating + imageURL);
 
             }
-            return movieItems;
+            return resultItems;
         }
 
         @Override
