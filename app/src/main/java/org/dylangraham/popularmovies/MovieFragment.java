@@ -136,7 +136,7 @@ public class MovieFragment extends Fragment {
 
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
+                // If the code didn't successfully get the weather data, there's no point in attempting
                 // to parse it.
                 return null;
             } finally {
