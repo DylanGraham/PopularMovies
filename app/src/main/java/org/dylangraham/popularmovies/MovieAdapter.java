@@ -28,9 +28,9 @@ public class MovieAdapter extends ArrayAdapter<MovieItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
-        MovieItem mi = getItem(position);
+        final MovieItem movieItem = getItem(position);
 
-        String url = mi.imageURL;
+        String url = movieItem.imageURL;
 
         // Adapters recycle views to AdapterViews.
         // If this is a new View object we're getting, then inflate the layout.
@@ -46,8 +46,14 @@ public class MovieAdapter extends ArrayAdapter<MovieItem> {
                 .with(context)
                 .load(url)
                 .error(R.mipmap.ic_launcher)
-                //.fit()
                 .into(iconView);
+
+        iconView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create Intent to DetailActivity
+            }
+        });
 
         return convertView;
     }
