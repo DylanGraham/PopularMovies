@@ -2,6 +2,7 @@ package org.dylangraham.popularmovies;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,9 @@ public class MovieAdapter extends ArrayAdapter<MovieItem> {
         iconView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create Intent to DetailActivity
+                Intent detailIntent = new Intent(context, DetailActivity.class);
+                detailIntent.putExtra("movieItemsParcel", movieItem);
+                context.startActivity(detailIntent);
             }
         });
 
