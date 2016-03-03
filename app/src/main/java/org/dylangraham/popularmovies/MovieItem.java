@@ -27,6 +27,10 @@ public class MovieItem implements Parcelable {
         movieName = in.readString();
         rating = in.readString();
         imageURL = in.readString();
+        backdropPath = in.readString();
+        overview = in.readString();
+        average = in.readString();
+        releaseDate = in.readString();
     }
 
     @Override
@@ -49,6 +53,10 @@ public class MovieItem implements Parcelable {
             dest.writeString(movieName);
             dest.writeString(rating);
             dest.writeString(imageURL);
+            dest.writeString(backdropPath);
+            dest.writeString(overview);
+            dest.writeString(average);
+            dest.writeString(releaseDate);
         }
 
 
