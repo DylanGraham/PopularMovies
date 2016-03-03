@@ -7,17 +7,17 @@ public class MovieItem implements Parcelable {
     String movieName;
     String rating;
     String imageURL;
-    String backdropPath;
+    String backdropURL;
     String overview;
     String average;
     String releaseDate;
 
     public MovieItem(String id, String title, String rating, String imageURL,
-                     String backdropPath, String overview, String average, String releaseDate) {
+                     String backdropURL, String overview, String average, String releaseDate) {
         this.movieName = title;
         this.rating = rating;
         this.imageURL = imageURL;
-        this.backdropPath = backdropPath;
+        this.backdropURL = backdropURL;
         this.overview = overview;
         this.average = average;
         this.releaseDate = releaseDate;
@@ -27,7 +27,7 @@ public class MovieItem implements Parcelable {
         movieName = in.readString();
         rating = in.readString();
         imageURL = in.readString();
-        backdropPath = in.readString();
+        backdropURL = in.readString();
         overview = in.readString();
         average = in.readString();
         releaseDate = in.readString();
@@ -53,7 +53,7 @@ public class MovieItem implements Parcelable {
             dest.writeString(movieName);
             dest.writeString(rating);
             dest.writeString(imageURL);
-            dest.writeString(backdropPath);
+            dest.writeString(backdropURL);
             dest.writeString(overview);
             dest.writeString(average);
             dest.writeString(releaseDate);

@@ -194,8 +194,9 @@ public class MovieFragment extends Fragment {
                 String releaseDate = movieObject.getString(MDB_RELEASE_DATE);
 
                 String imageURL = "http://image.tmdb.org/t/p/w185" + posterPath;
+                String backdropURL = "http://image.tmdb.org/t/p/w342/" + backdropPath;
 
-                resultItems.add(new MovieItem(id, title, rating, imageURL, backdropPath, overview, average, releaseDate));
+                resultItems.add(new MovieItem(id, title, rating, imageURL, backdropURL, overview, average, releaseDate));
 
             }
             return resultItems;
