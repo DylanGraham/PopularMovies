@@ -7,11 +7,20 @@ public class MovieItem implements Parcelable {
     String movieName;
     String rating;
     String imageURL;
+    String backdropPath;
+    String overview;
+    String average;
+    String releaseDate;
 
-    public MovieItem(String movieName, String rating, String imageURL) {
-        this.movieName = movieName;
+    public MovieItem(String id, String title, String rating, String imageURL,
+                     String backdropPath, String overview, String average, String releaseDate) {
+        this.movieName = title;
         this.rating = rating;
         this.imageURL = imageURL;
+        this.backdropPath = backdropPath;
+        this.overview = overview;
+        this.average = average;
+        this.releaseDate = releaseDate;
     }
 
     private MovieItem(Parcel in) {
