@@ -13,10 +13,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         MovieItem movieItem = b.getParcelable("movieItemsParcel");
-        if (movieItem != null) {
-            Toast toast = Toast.makeText(this, movieItem.movieName, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, movieItem.movieName, Toast.LENGTH_SHORT);
         toast.show();
-    }
-
     }
 }
