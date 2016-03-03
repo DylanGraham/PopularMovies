@@ -184,14 +184,18 @@ public class MovieFragment extends Fragment {
                 // Get the current JSON object
                 JSONObject movieObject = movieArray.getJSONObject(i);
 
+                String id = movieObject.getString(MDB_ID);
                 String title = movieObject.getString(MDB_TITLE);
                 String rating = movieObject.getString(MDB_POPULARITY);
                 String posterPath = movieObject.getString(MDB_POSTER_PATH);
+                String backdropPath = movieObject.getString(MDB_BACKDROP_PATH);
+                String overview = movieObject.getString(MDB_OVERVIEW);
+                String average = movieObject.getString(MDB_VOTE_AVERAGE);
+                String releaseDate = movieObject.getString(MDB_RELEASE_DATE);
+
                 String imageURL = "http://image.tmdb.org/t/p/w185" + posterPath;
 
-                resultItems.add(new MovieItem(title, rating, imageURL));
-
-                //Log.v(LOG_TAG, title + rating + imageURL);
+                resultItems.add(new MovieItem(id, title, rating, imageURL, backdropPath, overview, average, releaseDate));
 
             }
             return resultItems;
