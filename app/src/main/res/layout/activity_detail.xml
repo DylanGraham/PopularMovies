@@ -5,4 +5,20 @@
     android:layout_height="match_parent"
     tools:context="org.dylangraham.popularmovies.DetailActivity">
 
+    <ImageView
+        android:id="@+id/detail_image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/detail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_image"
+        android:layout_alignParentLeft="true" />
+
 </RelativeLayout>
