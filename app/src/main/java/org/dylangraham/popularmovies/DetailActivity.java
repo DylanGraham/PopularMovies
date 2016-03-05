@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 public class DetailActivity extends AppCompatActivity {
 
     @Override
@@ -23,6 +21,12 @@ public class DetailActivity extends AppCompatActivity {
 
             TextView title = (TextView) findViewById(R.id.detail_title);
             title.setText(movieItem.movieName);
+
+            ImageView poster = (ImageView) findViewById(R.id.detail_poster);
+            Picasso.with(this)
+                    .load(movieItem.imageURL)
+                    .error(R.mipmap.ic_launcher)
+                    .into(poster);
 
             ImageView detailImage = (ImageView) findViewById(R.id.detail_image);
             Picasso.with(this)
