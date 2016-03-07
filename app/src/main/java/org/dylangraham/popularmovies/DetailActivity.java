@@ -22,6 +22,12 @@ public class DetailActivity extends AppCompatActivity {
             TextView title = (TextView) findViewById(R.id.detail_title);
             title.setText(movieItem.movieName);
 
+            TextView average = (TextView) findViewById(R.id.detail_average);
+            average.setText(movieItem.average);
+
+            TextView overview = (TextView) findViewById(R.id.detail_overview);
+            overview.setText(movieItem.overview);
+
             ImageView poster = (ImageView) findViewById(R.id.detail_poster);
             Picasso.with(this)
                     .load(movieItem.imageURL)
