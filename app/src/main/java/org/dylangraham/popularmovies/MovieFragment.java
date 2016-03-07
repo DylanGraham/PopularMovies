@@ -20,8 +20,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MovieFragment extends Fragment {
@@ -190,8 +192,12 @@ public class MovieFragment extends Fragment {
                 String posterPath = movieObject.getString(MDB_POSTER_PATH);
                 String backdropPath = movieObject.getString(MDB_BACKDROP_PATH);
                 String overview = movieObject.getString(MDB_OVERVIEW);
-                String average = movieObject.getString(MDB_VOTE_AVERAGE);
+                Double averageNum = movieObject.getDouble(MDB_VOTE_AVERAGE);
                 String releaseDate = movieObject.getString(MDB_RELEASE_DATE);
+
+                DecimalFormat df = new DecimalFormat("#.#");
+                df.setRoundingMode(RoundingMode.HALF_UP);
+                String average = df.format(averageNum) + "/10";
 
                 String imageURL = "http://image.tmdb.org/t/p/w185" + posterPath;
                 String backdropURL = "http://image.tmdb.org/t/p/w342/" + backdropPath;
