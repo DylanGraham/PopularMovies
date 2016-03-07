@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:scaleType="fitStart" />
+        android:scaleType="centerCrop" />
 
     <ImageView
         android:id="@+id/detail_poster"
@@ -25,10 +29,29 @@
         android:id="@+id/detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toRightOf="@id/detail_poster"
         android:layout_below="@id/detail_image"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"/>
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/detail_poster"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/detail_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_title"
+        android:layout_toRightOf="@id/detail_poster"
+        android:paddingLeft="8dp"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/detail_overview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_poster"
+        android:padding="8dp"
+        android:textSize="16sp" />
 
 </RelativeLayout>
+
+</ScrollView>
