@@ -12,6 +12,7 @@ machine:
 
 dependencies:
     pre:
+        - echo "MOVIEDB_API_KEY=$MOVIEDB_API_KEY" > secrets.properties
         - echo y | android update sdk --no-ui --all --filter "tools"
 
     override:
