@@ -1,57 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="org.dylangraham.popularmovies.DetailActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/detail_image"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/relative_layout_detail"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent"
+        tools:context="org.dylangraham.popularmovies.DetailActivity">
 
-    <ImageView
-        android:id="@+id/detail_poster"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="175dp" />
+        <ImageView
+            android:id="@+id/detail_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detail_image"
-        android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@id/detail_poster"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
+        <ImageView
+            android:id="@+id/detail_poster"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="175dp" />
 
-    <TextView
-        android:id="@+id/detail_average"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detail_title"
-        android:layout_toRightOf="@id/detail_poster"
-        android:paddingLeft="8dp"
-        android:textSize="36sp" />
+        <TextView
+            android:id="@+id/detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detail_image"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/detail_poster"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/detail_overview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detail_poster"
-        android:padding="8dp"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/detail_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detail_title"
+            android:layout_toRightOf="@id/detail_poster"
+            android:paddingLeft="8dp"
+            android:textSize="36sp" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/detail_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detail_poster"
+            android:padding="8dp"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
 
 </ScrollView>
