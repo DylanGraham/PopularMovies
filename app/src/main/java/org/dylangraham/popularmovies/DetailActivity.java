@@ -42,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
             ImageView poster = (ImageView) findViewById(R.id.detail_poster);
             Picasso.with(this).load(movieItem.imageURL).error(R.mipmap.ic_launcher).into(poster,
                     PicassoPalette.with(movieItem.imageURL, poster)
-                            .use(PicassoPalette.Profile.MUTED_DARK)
+                            .use(PicassoPalette.Profile.MUTED)
                             .intoBackground(detailScroll)
                             .intoTextColor(title, BitmapPalette.Swatch.TITLE_TEXT_COLOR)
                             .intoTextColor(average, BitmapPalette.Swatch.TITLE_TEXT_COLOR)
