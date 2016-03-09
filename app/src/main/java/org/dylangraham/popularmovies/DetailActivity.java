@@ -2,6 +2,7 @@ package org.dylangraham.popularmovies;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -27,7 +28,6 @@ public class DetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null && movieItem != null) {
             getSupportActionBar().setTitle(movieItem.movieName);
 
-            RelativeLayout detailLayout = (RelativeLayout) findViewById(R.id.relative_layout_detail);
             ScrollView detailScroll = (ScrollView) findViewById(R.id.scrollview_detail);
 
             TextView title = (TextView) findViewById(R.id.detail_title);
