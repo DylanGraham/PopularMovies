@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -32,6 +33,7 @@ public class MovieFragment extends Fragment {
 
     private MovieAdapter movieAdapter;
     private ArrayList<MovieItem> movieItems;
+    private boolean sortByPopular = true;
 
     public MovieFragment() {
     }
@@ -54,11 +56,24 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort:
+                sortByPopular = !sortByPopular;
+                updateMovies();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
     }
 
     private void updateMovies() {
+        movieItems.clear();
         FetchMovieDataTask movieDataTask = new FetchMovieDataTask();
         movieDataTask.execute();
     }
@@ -89,10 +104,9 @@ public class MovieFragment extends Fragment {
     public class FetchMovieDataTask extends AsyncTask<String, Void, ArrayList<MovieItem>> {
 
         private final String LOG_TAG = FetchMovieDataTask.class.getSimpleName();
+        private String sort;
 
-
-        public FetchMovieDataTask() {
-            }
+        public FetchMovieDataTask() {}
 
         @Override
         protected ArrayList<MovieItem> doInBackground(String... params) {
@@ -104,19 +118,24 @@ public class MovieFragment extends Fragment {
             // Will contain the raw JSON response as a string.
             String movieJsonStr = null;
 
-            // Values that can be changed by the user in prefs eventually
-            String sort = "popularity.desc";
+            if (sortByPopular) {
+                sort = "popularity.desc";
+            } else {
+                sort = "vote_average.desc";
+            }
 
             try {
                 // Construct the URL
                 final String BASE_URL = "http://api.themoviedb.org/3/discover/movie/?";
                 final String SORT_PARAM = "sort_by";
                 final String API_PARAM = "api_key";
+                final String VOTE_COUNT = "vote_count.gte";
                 final String API_KEY = BuildConfig.MOVIEDB_API_KEY;
 
                 Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                         .appendQueryParameter(SORT_PARAM, sort)
                         .appendQueryParameter(API_PARAM, API_KEY)
+                        .appendQueryParameter(VOTE_COUNT, "100")
                         .build();
 
                 URL url = new URL(builtUri.toString());
