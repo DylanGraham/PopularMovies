@@ -40,8 +40,9 @@ public class MovieFragment extends Fragment {
         setHasOptionsMenu(true);
         if(savedInstanceState == null) {
             movieItems = new ArrayList<>();
+        } else {
+            movieItems = savedInstanceState.getParcelableArrayList("MOVIE_ITEMS");
         }
-
     }
 
     @Override
@@ -67,6 +68,12 @@ public class MovieFragment extends Fragment {
         updateMovies();
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("MOVIE_ITEMS", movieItems);
     }
 
     public class FetchMovieDataTask extends AsyncTask<String, Void, ArrayList<MovieItem>> {
