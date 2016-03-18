@@ -65,7 +65,9 @@ public class MovieFragment extends Fragment {
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
         gridView.setAdapter(movieAdapter);
 
-        updateMovies();
+        if (movieItems.size() == 0) {
+            updateMovies();
+        }
 
         return rootView;
     }
