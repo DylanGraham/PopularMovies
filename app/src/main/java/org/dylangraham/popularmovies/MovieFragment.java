@@ -140,7 +140,7 @@ public class MovieFragment extends Fragment {
 
                 URL url = new URL(builtUri.toString());
 
-                Log.v(LOG_TAG, "Query URI: " + url);
+                //Log.v(LOG_TAG, "Query URI: " + url);
 
                 // Create the request and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
