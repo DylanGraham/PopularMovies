@@ -60,6 +60,11 @@ public class MovieFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_sort:
                 sortByPopular = !sortByPopular;
+                if (sortByPopular) {
+                    item.setTitle("Sort by popularity");
+                } else {
+                    item.setTitle("Sort by rating");
+                }
                 updateMovies();
                 return true;
             default:
