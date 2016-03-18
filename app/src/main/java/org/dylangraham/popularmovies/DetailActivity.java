@@ -40,7 +40,11 @@ public class DetailActivity extends AppCompatActivity {
 
             TextView year = (TextView) findViewById(R.id.detail_year);
             String[] date = movieItem.releaseDate.split("-");
-            year.setText(date[0]);
+            if (date[0] != null) {
+                year.setText(date[0]);
+            } else {
+                year.setText("-");
+            }
 
             TextView average = (TextView) findViewById(R.id.detail_average);
             average.setText(movieItem.average);
