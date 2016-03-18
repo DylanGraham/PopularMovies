@@ -38,6 +38,10 @@ public class DetailActivity extends AppCompatActivity {
             TextView title = (TextView) findViewById(R.id.detail_title);
             title.setText(movieItem.movieName);
 
+            TextView year = (TextView) findViewById(R.id.detail_year);
+            String[] date = movieItem.releaseDate.split("-");
+            year.setText(date[0]);
+
             TextView average = (TextView) findViewById(R.id.detail_average);
             average.setText(movieItem.average);
 
@@ -50,7 +54,8 @@ public class DetailActivity extends AppCompatActivity {
                             .use(PicassoPalette.Profile.MUTED)
                             .intoBackground(detailScroll)
                             .intoTextColor(title, BitmapPalette.Swatch.TITLE_TEXT_COLOR)
-                            .intoTextColor(average, BitmapPalette.Swatch.TITLE_TEXT_COLOR)
+                            .intoTextColor(year, BitmapPalette.Swatch.BODY_TEXT_COLOR)
+                            .intoTextColor(average, BitmapPalette.Swatch.BODY_TEXT_COLOR)
                             .intoTextColor(overview, BitmapPalette.Swatch.BODY_TEXT_COLOR));
 
             ImageView detailImage = (ImageView) findViewById(R.id.detail_image);
