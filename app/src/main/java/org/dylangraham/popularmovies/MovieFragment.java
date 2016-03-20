@@ -21,7 +21,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MovieFragment extends Fragment implements Callback<MovieResponse> {
+public class MovieFragment extends Fragment implements Callback<MovieResult> {
 
     public static final String LOG_TAG = MovieFragment.class.getSimpleName();
     private MovieAdapter movieAdapter;
@@ -71,18 +71,18 @@ public class MovieFragment extends Fragment implements Callback<MovieResponse> {
     }
 
     @Override
-    public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
         movieItems.clear();
 
 //        Log.v(LOG_TAG, "Movies size: " + response.body().movies.size());
 
-        for (Movie movie : response.body().movies) {
+        for (Result movie : response.body().getResults()) {
             Log.v(LOG_TAG, movie.getTitle());
         }
     }
 
     @Override
-    public void onFailure(Call<MovieResponse> call, Throwable t) {
+    public void onFailure(Call<MovieResult> call, Throwable t) {
         Log.v(LOG_TAG, "Retrofit FAIL :( " + t.getLocalizedMessage());
     }
 
@@ -105,7 +105,7 @@ public class MovieFragment extends Fragment implements Callback<MovieResponse> {
 
         MDBAPI mdbapi = retrofit.create(MDBAPI.class);
 
-        Call<MovieResponse> call = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT);
+        Call<MovieResult> call = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT);
 
         call.enqueue(this);
     }
