@@ -23,10 +23,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieFragment extends Fragment implements Callback<MovieResponse> {
 
+    public static final String LOG_TAG = MovieFragment.class.getSimpleName();
     private MovieAdapter movieAdapter;
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
-    public static final String LOG_TAG = MovieFragment.class.getSimpleName();
 
     public MovieFragment() {
     }
@@ -73,14 +73,17 @@ public class MovieFragment extends Fragment implements Callback<MovieResponse> {
     @Override
     public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         movieItems.clear();
-        Log.v(LOG_TAG, "Retrofit Reponse!");
 
+//        Log.v(LOG_TAG, "Movies size: " + response.body().movies.size());
 
+        for (Movie movie : response.body().movies) {
+            Log.v(LOG_TAG, movie.getTitle());
+        }
     }
 
     @Override
     public void onFailure(Call<MovieResponse> call, Throwable t) {
-        Log.v(LOG_TAG, "Retrofit FAIL :(");
+        Log.v(LOG_TAG, "Retrofit FAIL :( " + t.getLocalizedMessage());
     }
 
     private void updateMovies() {
