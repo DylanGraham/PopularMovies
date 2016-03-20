@@ -26,7 +26,6 @@ public class MovieFragment extends Fragment implements Callback<MovieResponse> {
     private MovieAdapter movieAdapter;
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
-    public static final String BASE_URL = "http://api.themoviedb.org/";
     public static final String LOG_TAG = MovieFragment.class.getSimpleName();
 
     public MovieFragment() {
@@ -85,6 +84,7 @@ public class MovieFragment extends Fragment implements Callback<MovieResponse> {
     }
 
     private void updateMovies() {
+        final String BASE_URL = "http://api.themoviedb.org/";
         final String API_VERSION = "3";
         final String VOTE_COUNT = "100";
         String SORT_BY;
