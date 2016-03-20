@@ -1,8 +1,6 @@
 package org.dylangraham.popularmovies;
 
 
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,25 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.math.RoundingMode;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class MovieFragment extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MovieFragment extends Fragment implements Callback<MovieResponse> {
 
     private MovieAdapter movieAdapter;
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
+    public static final String BASE_URL = "http://api.themoviedb.org/";
+    public static final String LOG_TAG = MovieFragment.class.getSimpleName();
 
     public MovieFragment() {
     }
@@ -77,10 +71,40 @@ public class MovieFragment extends Fragment {
         super.onStart();
     }
 
-    private void updateMovies() {
+    @Override
+    public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         movieItems.clear();
-        FetchMovieDataTask movieDataTask = new FetchMovieDataTask();
-        movieDataTask.execute();
+        Log.v(LOG_TAG, "Retrofit Reponse!");
+
+
+    }
+
+    @Override
+    public void onFailure(Call<MovieResponse> call, Throwable t) {
+        Log.v(LOG_TAG, "Retrofit FAIL :(");
+    }
+
+    private void updateMovies() {
+        final String API_VERSION = "3";
+        final String VOTE_COUNT = "100";
+        String SORT_BY;
+
+        if (sortByPopular) {
+            SORT_BY = "popularity.desc";
+        } else {
+            SORT_BY = "vote_average.desc";
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MDBAPI mdbapi = retrofit.create(MDBAPI.class);
+
+        Call<MovieResponse> call = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT);
+
+        call.enqueue(this);
     }
 
     @Override
@@ -106,7 +130,7 @@ public class MovieFragment extends Fragment {
         outState.putParcelableArrayList("MOVIE_ITEMS", movieItems);
     }
 
-    public class FetchMovieDataTask extends AsyncTask<String, Void, ArrayList<MovieItem>> {
+ /*   public class FetchMovieDataTask extends AsyncTask<String, Void, ArrayList<MovieItem>> {
 
         private final String LOG_TAG = FetchMovieDataTask.class.getSimpleName();
         private String sort;
@@ -259,5 +283,5 @@ public class MovieFragment extends Fragment {
                 }
             }
         }
-    }
+    }*/
 }
