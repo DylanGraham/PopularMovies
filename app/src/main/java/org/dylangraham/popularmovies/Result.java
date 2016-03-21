@@ -7,34 +7,34 @@ import java.util.Map;
 
 public class Result {
 
-    private String posterPath;
+    private String poster_path;
     private Boolean adult;
     private String overview;
-    private String releaseDate;
+    private String release_date;
     private List<Integer> genreIds = new ArrayList<Integer>();
     private Integer id;
-    private String originalTitle;
-    private String originalLanguage;
+    private String original_title;
+    private String original_language;
     private String title;
-    private String backdropPath;
+    private String backdrop_path;
     private Double popularity;
-    private Integer voteCount;
+    private Integer vote_count;
     private Boolean video;
-    private Double voteAverage;
+    private Double vote_average;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * @return The posterPath
+     * @return The poster_path
      */
-    public String getPosterPath() {
-        return posterPath;
+    public String getPoster_path() {
+        return poster_path;
     }
 
     /**
-     * @param posterPath The poster_path
+     * @param poster_path The poster_path
      */
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
     /**
@@ -51,6 +51,7 @@ public class Result {
         this.adult = adult;
     }
 
+
     /**
      * @return The overview
      */
@@ -66,17 +67,17 @@ public class Result {
     }
 
     /**
-     * @return The releaseDate
+     * @return The release_date
      */
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getRelease_date() {
+        return release_date;
     }
 
     /**
-     * @param releaseDate The release_date
+     * @param release_date The release_date
      */
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
     /**
@@ -108,31 +109,31 @@ public class Result {
     }
 
     /**
-     * @return The originalTitle
+     * @return The original_title
      */
-    public String getOriginalTitle() {
-        return originalTitle;
+    public String getOriginal_title() {
+        return original_title;
     }
 
     /**
-     * @param originalTitle The original_title
+     * @param original_title The original_title
      */
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
     }
 
     /**
-     * @return The originalLanguage
+     * @return The original_language
      */
-    public String getOriginalLanguage() {
-        return originalLanguage;
+    public String getOriginal_language() {
+        return original_language;
     }
 
     /**
-     * @param originalLanguage The original_language
+     * @param original_language The original_language
      */
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
     }
 
     /**
@@ -150,17 +151,17 @@ public class Result {
     }
 
     /**
-     * @return The backdropPath
+     * @return The backdrop_path
      */
-    public String getBackdropPath() {
-        return backdropPath;
+    public String getBackdrop_path() {
+        return backdrop_path;
     }
 
     /**
-     * @param backdropPath The backdrop_path
+     * @param backdrop_path The backdrop_path
      */
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
     }
 
     /**
@@ -178,17 +179,17 @@ public class Result {
     }
 
     /**
-     * @return The voteCount
+     * @return The vote_count
      */
-    public Integer getVoteCount() {
-        return voteCount;
+    public Integer getVote_count() {
+        return vote_count;
     }
 
     /**
-     * @param voteCount The vote_count
+     * @param vote_count The vote_count
      */
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
+    public void setVote_count(Integer vote_count) {
+        this.vote_count = vote_count;
     }
 
     /**
@@ -206,9 +207,13 @@ public class Result {
     }
 
     /**
-     * @return The voteAverage
+     * @return The vote_average
      */
-    public Double getVoteAverage() {
-        return voteAverage;
+    public Double getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(Double vote_average) {
+        this.vote_average = vote_average;
     }
 }
