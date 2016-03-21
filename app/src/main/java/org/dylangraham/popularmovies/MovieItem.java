@@ -4,6 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class MovieItem implements Parcelable {
+    public static final Parcelable.Creator<MovieItem> CREATOR = new Parcelable.Creator<MovieItem>() {
+        @Override
+        public MovieItem[] newArray(int size) {
+            return new MovieItem[size];
+        }
+
+        public MovieItem createFromParcel(Parcel in) {
+            return new MovieItem(in);
+        }
+    };
+    String id;
     String movieName;
     String rating;
     String imageURL;
@@ -14,6 +25,7 @@ public class MovieItem implements Parcelable {
 
     public MovieItem(String id, String title, String rating, String imageURL,
                      String backdropURL, String overview, String average, String releaseDate) {
+        this.id = id;
         this.movieName = title;
         this.rating = rating;
         this.imageURL = imageURL;
@@ -38,17 +50,6 @@ public class MovieItem implements Parcelable {
         return 0;
     }
 
-    public static final Parcelable.Creator<MovieItem> CREATOR = new Parcelable.Creator<MovieItem>() {
-        @Override
-        public MovieItem[] newArray(int size) {
-            return new MovieItem[size];
-        }
-
-        public MovieItem createFromParcel(Parcel in) {
-            return new MovieItem(in);
-        }
-    };
-
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(movieName);
             dest.writeString(rating);
@@ -58,6 +59,4 @@ public class MovieItem implements Parcelable {
             dest.writeString(average);
             dest.writeString(releaseDate);
         }
-
-
     }

@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -72,12 +74,24 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
 
     @Override
     public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-        movieItems.clear();
+        if (response.body() != null) {
+            movieItems.clear();
 
-//        Log.v(LOG_TAG, "Movies size: " + response.body().movies.size());
+            for (Result m : response.body().getResults()) {
+                DecimalFormat df = new DecimalFormat("#.#");
+                df.setRoundingMode(RoundingMode.HALF_UP);
+                String average = df.format(m.getVote_average()) + "/10";
 
-        for (Result movie : response.body().getResults()) {
-            Log.v(LOG_TAG, movie.getTitle());
+                String imageURL = "http://image.tmdb.org/t/p/w185" + m.getPoster_path();
+                String backdropURL = "http://image.tmdb.org/t/p/w342/" + m.getBackdrop_path();
+
+                movieItems.add(new MovieItem(m.getId().toString(), m.getTitle(), m.getVote_average().toString(),
+                        imageURL, backdropURL, m.getOverview(), average, m.getRelease_date()));
+            }
+
+            for (int i = 0; i < response.body().getResults().size(); ++i) {
+                movieAdapter.add(movieItems.get(i));
+            }
         }
     }
 
