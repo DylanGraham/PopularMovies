@@ -1,9 +1,7 @@
 package org.dylangraham.popularmovies;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Result {
 
@@ -11,7 +9,7 @@ public class Result {
     private Boolean adult;
     private String overview;
     private String release_date;
-    private List<Integer> genreIds = new ArrayList<Integer>();
+    private List<Integer> genre_ids = new ArrayList<Integer>();
     private Integer id;
     private String original_title;
     private String original_language;
@@ -21,7 +19,6 @@ public class Result {
     private Integer vote_count;
     private Boolean video;
     private Double vote_average;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * @return The poster_path
@@ -81,17 +78,17 @@ public class Result {
     }
 
     /**
-     * @return The genreIds
+     * @return The genre_ids
      */
-    public List<Integer> getGenreIds() {
-        return genreIds;
+    public List<Integer> getGenre_ids() {
+        return genre_ids;
     }
 
     /**
-     * @param genreIds The genre_ids
+     * @param genre_ids The genre_ids
      */
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
+    public void setGenre_ids(List<Integer> genre_ids) {
+        this.genre_ids = genre_ids;
     }
 
     /**

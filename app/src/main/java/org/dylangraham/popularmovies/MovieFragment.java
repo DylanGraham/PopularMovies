@@ -74,22 +74,30 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
 
     @Override
     public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
+        DecimalFormat df = new DecimalFormat("#.#");
+        df.setRoundingMode(RoundingMode.HALF_UP);
+
+        String average;
+        String imageURL;
+        String backdropURL;
+
         if (response.body() != null) {
             movieItems.clear();
+            movieAdapter.clear();
 
             for (Result m : response.body().getResults()) {
-                DecimalFormat df = new DecimalFormat("#.#");
-                df.setRoundingMode(RoundingMode.HALF_UP);
-                String average = df.format(m.getVote_average()) + "/10";
-
-                String imageURL = "http://image.tmdb.org/t/p/w185" + m.getPoster_path();
-                String backdropURL = "http://image.tmdb.org/t/p/w342/" + m.getBackdrop_path();
+                average = df.format(m.getVote_average()) + "/10";
+                imageURL = "http://image.tmdb.org/t/p/w185" + m.getPoster_path();
+                backdropURL = "http://image.tmdb.org/t/p/w342/" + m.getBackdrop_path();
 
                 movieItems.add(new MovieItem(m.getId().toString(), m.getTitle(), m.getVote_average().toString(),
                         imageURL, backdropURL, m.getOverview(), average, m.getRelease_date()));
             }
 
-            for (int i = 0; i < response.body().getResults().size(); ++i) {
+/*            for (MovieItem movieItem : movieItems) {
+                movieAdapter.add(movieItem);
+            }*/
+            for (int i = 0; i < 20; i++) {
                 movieAdapter.add(movieItems.get(i));
             }
         }
