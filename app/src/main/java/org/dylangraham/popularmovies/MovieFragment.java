@@ -93,13 +93,6 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
                 movieItems.add(new MovieItem(m.getId().toString(), m.getTitle(), m.getVote_average().toString(),
                         imageURL, backdropURL, m.getOverview(), average, m.getRelease_date()));
             }
-
-/*            for (MovieItem movieItem : movieItems) {
-                movieAdapter.add(movieItem);
-            }*/
-            for (int i = 0; i < 20; i++) {
-                movieAdapter.add(movieItems.get(i));
-            }
         }
     }
 
