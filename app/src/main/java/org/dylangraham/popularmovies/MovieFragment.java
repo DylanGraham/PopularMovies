@@ -29,6 +29,7 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
     public static final String LOG_TAG = MovieFragment.class.getSimpleName();
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
+    private MovieAdapter movieAdapter;
 
     public MovieFragment() {
     }
@@ -52,10 +53,10 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
         RecyclerView movieRecyclerView = (RecyclerView) rootView.findViewById(R.id.movie_recycler_view);
         movieRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-        MovieAdapter movieAdapter = new MovieAdapter(movieItems);
+        movieAdapter = new MovieAdapter(movieItems);
+        movieRecyclerView.setAdapter(movieAdapter);
 
         if (movieItems.size() == 0) updateMovies();
-        movieRecyclerView.setAdapter(movieAdapter);
 
         return rootView;
     }
@@ -109,6 +110,8 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
                         imageURL, backdropURL, m.getOverview(), average, m.getRelease_date()));
             }
         }
+
+        movieAdapter.notifyDataSetChanged();
     }
 
     @Override
