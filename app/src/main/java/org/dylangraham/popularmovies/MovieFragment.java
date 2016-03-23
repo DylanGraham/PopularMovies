@@ -4,6 +4,8 @@ package org.dylangraham.popularmovies;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +31,7 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
     private MovieAdapter movieAdapter;
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
+    private RecyclerView movieRecyclerView;
 
     public MovieFragment() {
     }
@@ -128,7 +131,14 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.movie_recycler_view, container, false);
+
+        // TODO: Finish RecyclerView setup
+        movieRecyclerView = (RecyclerView) rootView.findViewById(R.id.movie_recycler_view);
+        movieRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+
+
 
         movieAdapter = new MovieAdapter(getActivity(), movieItems);
 
