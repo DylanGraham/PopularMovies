@@ -1,63 +1,46 @@
 package org.dylangraham.popularmovies;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MovieAdapter extends ArrayAdapter<MovieItem> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
     private static final String LOG_TAG = MovieAdapter.class.getSimpleName();
-    private Context context;
+    private List<MovieItem> movieItems;
 
-    public MovieAdapter(Activity context, List<MovieItem> movieItems) {
-        // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
-        // the second argument is used when the ArrayAdapter is populating a single TextView.
-        // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
-        // going to use this second argument, so it can be any value. Here, we used 0.
-        super(context, R.layout.movie_item, movieItems);
-        this.context = context;
+    public MovieAdapter(List<MovieItem> movieItems) {
+        this.movieItems = movieItems;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // Gets the AndroidFlavor object from the ArrayAdapter at the appropriate position
-        final MovieItem movieItem = getItem(position);
+    public MovieHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View v = layoutInflater.inflate(R.layout.movie_item, parent, false);
 
-        String url = movieItem.imageURL;
+        return new MovieHolder(v);
+    }
 
-        // Adapters recycle views to AdapterViews.
-        // If this is a new View object we're getting, then inflate the layout.
-        // If not, this view already has the layout inflated from a previous call to getView,
-        // and we modify the View widgets as usual.
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.movie_item, parent, false);
-        }
+    @Override
+    public void onBindViewHolder(MovieHolder holder, int position) {
+        MovieItem movie = movieItems.get(position);
+        String url = movie.imageURL;
+        Context context = holder.itemView.getContext();
+        holder.bindMovie(movie);
 
-        ImageView iconView = (ImageView) convertView.findViewById(R.id.movie_image);
-        Picasso
-                .with(context)
+        Picasso.with(context)
                 .load(url)
                 .error(R.mipmap.ic_launcher)
-                .into(iconView);
+                .into(holder.getMovieImage());
+    }
 
-        iconView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent detailIntent = new Intent(context, DetailActivity.class);
-                detailIntent.putExtra("movieItemsParcel", movieItem);
-                context.startActivity(detailIntent);
-            }
-        });
-
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return movieItems.size();
     }
 }

@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -28,10 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MovieFragment extends Fragment implements Callback<MovieResult> {
 
     public static final String LOG_TAG = MovieFragment.class.getSimpleName();
-    private MovieAdapter movieAdapter;
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
-    private RecyclerView movieRecyclerView;
 
     public MovieFragment() {
     }
@@ -45,6 +42,22 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
         } else {
             movieItems = savedInstanceState.getParcelableArrayList("MOVIE_ITEMS");
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.movie_recycler_view, container, false);
+
+        RecyclerView movieRecyclerView = (RecyclerView) rootView.findViewById(R.id.movie_recycler_view);
+        movieRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        MovieAdapter movieAdapter = new MovieAdapter(movieItems);
+
+        if (movieItems.size() == 0) updateMovies();
+        movieRecyclerView.setAdapter(movieAdapter);
+
+        return rootView;
     }
 
     @Override
@@ -86,7 +99,6 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
 
         if (response.body() != null) {
             movieItems.clear();
-            movieAdapter.clear();
 
             for (Result m : response.body().getResults()) {
                 average = df.format(m.getVote_average()) + "/10";
@@ -126,30 +138,6 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
         Call<MovieResult> call = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT);
 
         call.enqueue(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.movie_recycler_view, container, false);
-
-        // TODO: Finish RecyclerView setup
-        movieRecyclerView = (RecyclerView) rootView.findViewById(R.id.movie_recycler_view);
-        movieRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
-
-
-
-        movieAdapter = new MovieAdapter(getActivity(), movieItems);
-
-        GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
-        gridView.setAdapter(movieAdapter);
-
-        if (movieItems.size() == 0) {
-            updateMovies();
-        }
-
-        return rootView;
     }
 
     @Override
