@@ -16,7 +16,7 @@ dependencies:
         - echo y | android update sdk --no-ui --filter "tools"
 
     override:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-23.0.3,android-23
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-24.0.1,android-24
         - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
 
 test:
