@@ -7,16 +7,27 @@ general:
         - /home/ubuntu/PopularMovies/app/build/outputs/apk/
 
 machine:
+    java:
+        version: openjdk8
     environment:
         ANDROID_HOME: /usr/local/android-sdk-linux
 
 dependencies:
     pre:
         - echo "MOVIEDB_API_KEY=$MOVIEDB_API_KEY" > secrets.properties
-        - echo y | android update sdk --no-ui --filter "tools"
+        # Android SDK Platform 24
+        - if [ ! -d "/usr/local/android-sdk-linux/platforms/android-24" ]; then echo y | android update sdk --no-ui --all --filter "android-24"; fi
+        # Android SDK Build-tools, revision 24.0.3
+        - if [ ! -d "/usr/local/android-sdk-linux/build-tools/24.0.3" ]; then echo y | android update sdk --no-ui --all --filter "build-tools-24.0.3"; fi
+        # Android Support Repository, revision 35 / Local Maven repository for Support Libraries
+        - if [ ! -d "/usr/local/android-sdk-linux/extras/android/m2repository/com/android/support/design/24.1.0" ]; then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"; fi
+
+    cache_directories:
+        - /usr/local/android-sdk-linux/platforms/android-24
+        - /usr/local/android-sdk-linux/build-tools/24.0.3
+        - /usr/local/android-sdk-linux/extras/android/m2repository
 
     override:
-        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-24.2.1,android-24
         - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies
 
 test:
