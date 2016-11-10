@@ -24,8 +24,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 
-public class MovieFragment extends Fragment implements Callback<MovieResult> {
+public class MovieFragment extends Fragment {
 
     public static final String LOG_TAG = MovieFragment.class.getSimpleName();
     private ArrayList<MovieItem> movieItems;
@@ -39,7 +40,7 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             movieItems = new ArrayList<>();
         } else {
             movieItems = savedInstanceState.getParcelableArrayList("MOVIE_ITEMS");
@@ -90,36 +91,6 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
         super.onStart();
     }
 
-    @Override
-    public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-        DecimalFormat df = new DecimalFormat("#.#");
-        df.setRoundingMode(RoundingMode.HALF_UP);
-
-        String average;
-        String imageURL;
-        String backdropURL;
-
-        if (response.body() != null) {
-            movieItems.clear();
-
-            for (Result m : response.body().getResults()) {
-                average = df.format(m.getVote_average()) + "/10";
-                imageURL = "http://image.tmdb.org/t/p/w185" + m.getPoster_path();
-                backdropURL = "http://image.tmdb.org/t/p/w342/" + m.getBackdrop_path();
-
-                movieItems.add(new MovieItem(m.getId().toString(), m.getTitle(), m.getVote_average().toString(),
-                        imageURL, backdropURL, m.getOverview(), average, m.getRelease_date()));
-            }
-        }
-
-        movieAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onFailure(Call<MovieResult> call, Throwable t) {
-        Log.v(LOG_TAG, "Retrofit FAIL :( " + t.getLocalizedMessage());
-    }
-
     private void updateMovies() {
         final String BASE_URL = "http://api.themoviedb.org/";
         final String API_VERSION = "3";
@@ -140,9 +111,22 @@ public class MovieFragment extends Fragment implements Callback<MovieResult> {
 
         MDBAPI mdbapi = retrofit.create(MDBAPI.class);
 
-        Call<MovieResult> call = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT);
+        Observable<MovieResult> movieResults = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT);
+        Observable<Result> result = movieResults.concatMapIterable(MovieResult::getResults);
 
-        call.enqueue(this);
+        movieAdapter.notifyDataSetChanged();
+    }
+
+    private void addMovie(Result r) {
+        DecimalFormat df = new DecimalFormat("#.#");
+        df.setRoundingMode(RoundingMode.HALF_UP);
+
+        String average = df.format(r.getVote_average()) + "/10";
+        String imageURL = "http://image.tmdb.org/t/p/w185" + r.getPoster_path();
+        String backdropURL = "http://image.tmdb.org/t/p/w342/" + r.getBackdrop_path();
+
+        movieItems.add(new MovieItem(r.getId().toString(), r.getTitle(), r.getVote_average().toString(),
+                imageURL, backdropURL, r.getOverview(), average, r.getRelease_date()));
     }
 
     @Override
