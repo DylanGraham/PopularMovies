@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,14 +16,15 @@ import android.view.ViewGroup;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class MovieFragment extends Fragment {
 
@@ -32,6 +32,7 @@ public class MovieFragment extends Fragment {
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
     private MovieAdapter movieAdapter;
+    private Subscription subscription;
 
     public MovieFragment() {
     }
@@ -111,27 +112,47 @@ public class MovieFragment extends Fragment {
 
         MDBAPI mdbapi = retrofit.create(MDBAPI.class);
 
-        Observable<MovieResult> movieResults = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT);
-        Observable<Result> result = movieResults.concatMapIterable(MovieResult::getResults);
-
-        movieAdapter.notifyDataSetChanged();
+        subscription = mdbapi.getMovies(API_VERSION, SORT_BY, BuildConfig.MOVIEDB_API_KEY, VOTE_COUNT)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::addMovie,
+                        (Throwable t) -> Timber.d(t.getMessage()),
+                        this::onCompleted);
     }
 
-    private void addMovie(Result r) {
+    private void onCompleted() {
+        Timber.d("RxJava onCompleted()");
+    }
+
+    private void addMovie(MovieResult movieResults) {
         DecimalFormat df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.HALF_UP);
 
-        String average = df.format(r.getVote_average()) + "/10";
-        String imageURL = "http://image.tmdb.org/t/p/w185" + r.getPoster_path();
-        String backdropURL = "http://image.tmdb.org/t/p/w342/" + r.getBackdrop_path();
+        List<Result> results = movieResults.getResults();
 
-        movieItems.add(new MovieItem(r.getId().toString(), r.getTitle(), r.getVote_average().toString(),
-                imageURL, backdropURL, r.getOverview(), average, r.getRelease_date()));
+        for (Result r : results) {
+            String average = df.format(r.getVote_average()) + "/10";
+            String imageURL = "http://image.tmdb.org/t/p/w185" + r.getPoster_path();
+            String backdropURL = "http://image.tmdb.org/t/p/w342/" + r.getBackdrop_path();
+
+            movieItems.add(new MovieItem(r.getId().toString(), r.getTitle(), r.getVote_average().toString(),
+                    imageURL, backdropURL, r.getOverview(), average, r.getRelease_date()));
+        }
+
+        movieAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("MOVIE_ITEMS", movieItems);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 }
