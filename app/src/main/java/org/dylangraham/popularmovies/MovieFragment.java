@@ -27,8 +27,6 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class MovieFragment extends Fragment {
-
-    public static final String LOG_TAG = MovieFragment.class.getSimpleName();
     private ArrayList<MovieItem> movieItems;
     private boolean sortByPopular = true;
     private MovieAdapter movieAdapter;
