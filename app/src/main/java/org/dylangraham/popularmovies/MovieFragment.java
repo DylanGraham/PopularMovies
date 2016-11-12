@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -31,6 +30,7 @@ public class MovieFragment extends Fragment {
     private boolean sortByPopular = true;
     private MovieAdapter movieAdapter;
     private Subscription subscription;
+    private Retrofit retrofit;
 
     public MovieFragment() {
     }
@@ -44,6 +44,14 @@ public class MovieFragment extends Fragment {
         } else {
             movieItems = savedInstanceState.getParcelableArrayList("MOVIE_ITEMS");
         }
+
+        final String BASE_URL = "http://api.themoviedb.org/";
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 
     @Override
@@ -91,7 +99,6 @@ public class MovieFragment extends Fragment {
     }
 
     private void updateMovies() {
-        final String BASE_URL = "http://api.themoviedb.org/";
         final String API_VERSION = "3";
         final String VOTE_COUNT = "100";
         String SORT_BY;
@@ -101,12 +108,6 @@ public class MovieFragment extends Fragment {
         } else {
             SORT_BY = "vote_average.desc";
         }
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
         MDBAPI mdbapi = retrofit.create(MDBAPI.class);
 
