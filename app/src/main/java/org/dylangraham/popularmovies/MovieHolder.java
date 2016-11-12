@@ -16,15 +16,12 @@ public class MovieHolder extends RecyclerView.ViewHolder {
 
         movieImage = (ImageView) itemView.findViewById(R.id.movie_image);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = itemView.getContext();
+        itemView.setOnClickListener(v -> {
+            Context context = itemView.getContext();
 
-                Intent detailIntent = new Intent(context, DetailActivity.class);
-                detailIntent.putExtra("movieItemsParcel", movieItem);
-                context.startActivity(detailIntent);
-            }
+            Intent detailIntent = new Intent(context, DetailActivity.class);
+            detailIntent.putExtra("movieItemsParcel", movieItem);
+            context.startActivity(detailIntent);
         });
     }
 
