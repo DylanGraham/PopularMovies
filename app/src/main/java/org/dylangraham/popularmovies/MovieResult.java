@@ -11,7 +11,7 @@ public class MovieResult {
     private List<Result> results = new ArrayList<>();
     private Integer totalResults;
     private Integer totalPages;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     /**
      * @return The page
