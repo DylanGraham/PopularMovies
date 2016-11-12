@@ -120,15 +120,16 @@ public class MovieFragment extends Fragment {
 
     private void onCompleted() {
         Timber.d("RxJava onCompleted()");
+        movieAdapter.notifyDataSetChanged();
     }
 
     private void addMovie(MovieResult movieResults) {
         DecimalFormat df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.HALF_UP);
 
-        List<Result> results = movieResults.getResults();
+        movieItems.clear();
 
-        for (Result r : results) {
+        for (Result r : movieResults.getResults()) {
             String average = df.format(r.getVote_average()) + "/10";
             String imageURL = "http://image.tmdb.org/t/p/w185" + r.getPoster_path();
             String backdropURL = "http://image.tmdb.org/t/p/w342/" + r.getBackdrop_path();
@@ -136,8 +137,6 @@ public class MovieFragment extends Fragment {
             movieItems.add(new MovieItem(r.getId().toString(), r.getTitle(), r.getVote_average().toString(),
                     imageURL, backdropURL, r.getOverview(), average, r.getRelease_date()));
         }
-
-        movieAdapter.notifyDataSetChanged();
     }
 
     @Override
