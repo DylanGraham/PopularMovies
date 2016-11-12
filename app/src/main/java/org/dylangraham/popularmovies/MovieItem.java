@@ -52,14 +52,14 @@ public class MovieItem implements Parcelable {
         return 0;
     }
 
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(id);
-            dest.writeString(movieName);
-            dest.writeString(rating);
-            dest.writeString(imageURL);
-            dest.writeString(backdropURL);
-            dest.writeString(overview);
-            dest.writeString(average);
-            dest.writeString(releaseDate);
-        }
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(movieName);
+        dest.writeString(rating);
+        dest.writeString(imageURL);
+        dest.writeString(backdropURL);
+        dest.writeString(overview);
+        dest.writeString(average);
+        dest.writeString(releaseDate);
     }
+}
