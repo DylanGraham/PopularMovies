@@ -9,7 +9,7 @@ public class Result {
     private Boolean adult;
     private String overview;
     private String release_date;
-    private List<Integer> genre_ids = new ArrayList<Integer>();
+    private List<Integer> genre_ids = new ArrayList<>();
     private Integer id;
     private String original_title;
     private String original_language;
