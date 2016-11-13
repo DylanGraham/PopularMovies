@@ -26,7 +26,7 @@
             android:layout_height="150dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="355dp" />
+            android:layout_marginTop="365dp" />
 
         <TextView
             android:id="@+id/detail_title"
@@ -61,7 +61,7 @@
             android:id="@+id/detail_overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detail_poster"
+            android:layout_below="@id/detail_average"
             android:padding="8dp"
             android:textSize="16sp" />
 
