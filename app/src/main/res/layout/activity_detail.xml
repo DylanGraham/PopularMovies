@@ -55,8 +55,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/detail_year"
-            android:layout_toRightOf="@id/detail_poster"
-            android:paddingLeft="8dp"
+            android:layout_toEndOf="@id/detail_poster"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"
             android:textSize="36sp" />
 
         <TextView
