@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.github.florent37.picassopalette.BitmapPalette;
 import com.github.florent37.picassopalette.PicassoPalette;
 import com.squareup.picasso.Picasso;
 
@@ -57,10 +56,10 @@ public class DetailActivity extends AppCompatActivity {
                     PicassoPalette.with(movieItem.imageURL, poster)
                             .use(PicassoPalette.Profile.MUTED)
                             .intoBackground(detailScroll)
-                            .intoTextColor(title, BitmapPalette.Swatch.TITLE_TEXT_COLOR)
-                            .intoTextColor(year, BitmapPalette.Swatch.BODY_TEXT_COLOR)
-                            .intoTextColor(average, BitmapPalette.Swatch.BODY_TEXT_COLOR)
-                            .intoTextColor(overview, BitmapPalette.Swatch.BODY_TEXT_COLOR));
+                            .intoTextColor(title, PicassoPalette.Swatch.TITLE_TEXT_COLOR)
+                            .intoTextColor(year, PicassoPalette.Swatch.BODY_TEXT_COLOR)
+                            .intoTextColor(average, PicassoPalette.Swatch.BODY_TEXT_COLOR)
+                            .intoTextColor(overview, PicassoPalette.Swatch.BODY_TEXT_COLOR));
 
             ImageView detailImage = (ImageView) findViewById(R.id.detail_image);
             Picasso.with(this)
