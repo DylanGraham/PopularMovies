@@ -52,7 +52,7 @@ dependencies {
     compile "com.android.support:support-v4:$supportLib"
     compile "com.squareup.picasso:picasso:2.5.2"
     compile "com.android.support:palette-v7:$supportLib"
-    compile "com.github.florent37:picassopalette:1.0.2@aar"
+    compile "com.github.florent37:picassopalette:2.0.0"
     androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.2"
     androidTestCompile "com.android.support.test:runner:0.5"
     androidTestCompile "com.android.support:support-v4:$supportLib"
