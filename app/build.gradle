@@ -42,13 +42,13 @@ repositories {
 }
 
 ext {
-    supportLib = '25.0.1'
+    supportLib = '25.1.0'
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:25.0.1"
+    compile "com.android.support:appcompat-v7:25.1.0"
     compile "com.android.support:support-v4:$supportLib"
     compile "com.squareup.picasso:picasso:2.5.2"
     compile "com.android.support:palette-v7:$supportLib"
