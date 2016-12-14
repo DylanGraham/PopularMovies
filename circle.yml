@@ -15,12 +15,12 @@ machine:
 dependencies:
     pre:
         - echo "MOVIEDB_API_KEY=$MOVIEDB_API_KEY" > secrets.properties
-        # Android SDK Platform 24
+        # Android SDK Platform
         - if [ ! -d "/usr/local/android-sdk-linux/platforms/android-25" ]; then echo y | android update sdk --no-ui --all --filter "android-25"; fi
-        # Android SDK Build-tools, revision 24.0.3
+        # Android SDK Build-tools
         - if [ ! -d "/usr/local/android-sdk-linux/build-tools/25.0.1" ]; then echo y | android update sdk --no-ui --all --filter "build-tools-25.0.1"; fi
-        # Android Support Repository, revision 35 / Local Maven repository for Support Libraries
-        - if [ ! -d "/usr/local/android-sdk-linux/extras/android/m2repository/com/android/support/design/25.0.1" ]; then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"; fi
+        # Android Support Repository, Local Maven repository for Support Libraries
+        - if [ ! -d "/usr/local/android-sdk-linux/extras/android/m2repository/com/android/support/design/25.1.0" ]; then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"; fi
 
     cache_directories:
         - /usr/local/android-sdk-linux/platforms/android-25
