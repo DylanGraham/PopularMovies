@@ -3,7 +3,7 @@ package org.dylangraham.popularmovies;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MovieItem implements Parcelable {
+class MovieItem implements Parcelable {
     String id;
     String movieName;
     String rating;
