@@ -24,7 +24,7 @@ public class MovieItem implements Parcelable {
         }
     };
 
-    public MovieItem(String id, String title, String rating, String imageURL,
+    MovieItem(String id, String title, String rating, String imageURL,
                      String backdropURL, String overview, String average, String releaseDate) {
         this.id = id;
         this.movieName = title;
