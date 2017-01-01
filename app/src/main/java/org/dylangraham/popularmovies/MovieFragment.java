@@ -132,8 +132,8 @@ public class MovieFragment extends Fragment {
 
         for (Result r : movieResults.getResults()) {
             String average = df.format(r.getVote_average()) + "/10";
-            String imageURL = "http://image.tmdb.org/t/p/w185" + r.getPoster_path();
-            String backdropURL = "http://image.tmdb.org/t/p/w342/" + r.getBackdrop_path();
+            String imageURL = "http://image.tmdb.org/t/p/w500" + r.getPoster_path();
+            String backdropURL = "http://image.tmdb.org/t/p/w780/" + r.getBackdrop_path();
 
             movieItems.add(new MovieItem(r.getId().toString(), r.getTitle(), r.getVote_average().toString(),
                     imageURL, backdropURL, r.getOverview(), average, r.getRelease_date()));
