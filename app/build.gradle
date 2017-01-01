@@ -30,6 +30,7 @@ android {
             variant.buildConfigField "String", "MOVIEDB_API_KEY", "\""+getApiKey()+"\""
         }
     }
+    return true
 }
 
 def getApiKey(){
