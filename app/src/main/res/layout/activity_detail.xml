@@ -41,8 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintLeft_toRightOf="@id/detail_poster"
             app:layout_constraintTop_toBottomOf="@id/detail_image" />
 
@@ -50,9 +49,8 @@
             android:id="@+id/detail_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
             app:layout_constraintLeft_toRightOf="@id/detail_poster"
             app:layout_constraintTop_toBottomOf="@id/detail_title" />
 
@@ -61,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:textSize="36sp"
+            android:textSize="30sp"
             app:layout_constraintLeft_toRightOf="@id/detail_poster"
             app:layout_constraintTop_toBottomOf="@id/detail_year" />
 
@@ -69,8 +67,8 @@
             android:id="@+id/detail_overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textSize="16sp"
+            android:padding="16dp"
+            android:textSize="20sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_average" />
 
