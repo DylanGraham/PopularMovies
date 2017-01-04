@@ -131,7 +131,7 @@ public class MovieFragment extends Fragment {
         movieItems.clear();
 
         for (Result r : movieResults.getResults()) {
-            String average = df.format(r.getVote_average()) + "/10";
+            String average = df.format(r.getVote_average() / 2) + "★";
             String imageURL = "http://image.tmdb.org/t/p/w500" + r.getPoster_path();
             String backdropURL = "http://image.tmdb.org/t/p/w780/" + r.getBackdrop_path();
 
