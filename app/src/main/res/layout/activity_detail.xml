@@ -30,8 +30,7 @@
             android:layout_width="93dp"
             android:layout_height="140dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="258dp"
+            android:layout_marginTop="279dp"
             android:contentDescription="@string/movie_poster"
             android:scaleType="fitStart"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +41,6 @@
             android:layout_width="259dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
             android:textSize="24sp"
             app:layout_constraintLeft_toRightOf="@+id/detail_poster"
             app:layout_constraintTop_toBottomOf="@+id/detail_image" />
@@ -52,7 +50,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
             android:textSize="18sp"
             app:layout_constraintLeft_toRightOf="@+id/detail_poster"
             app:layout_constraintTop_toBottomOf="@+id/detail_title" />
@@ -61,10 +58,10 @@
             android:id="@+id/detail_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="10dp"
             android:textSize="18sp"
-            app:layout_constraintLeft_toRightOf="@+id/detail_year"
-            app:layout_constraintTop_toBottomOf="@+id/detail_title" />
+            app:layout_constraintLeft_toRightOf="@+id/detail_poster"
+            app:layout_constraintTop_toBottomOf="@+id/detail_year" />
 
         <TextView
             android:id="@+id/detail_overview"
