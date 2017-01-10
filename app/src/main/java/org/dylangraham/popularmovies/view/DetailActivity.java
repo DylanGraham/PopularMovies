@@ -1,4 +1,4 @@
-package org.dylangraham.popularmovies;
+package org.dylangraham.popularmovies.view;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.github.florent37.picassopalette.PicassoPalette;
 import com.squareup.picasso.Picasso;
 
+import org.dylangraham.popularmovies.R;
 import org.dylangraham.popularmovies.model.MovieItem;
 
 public class DetailActivity extends AppCompatActivity {

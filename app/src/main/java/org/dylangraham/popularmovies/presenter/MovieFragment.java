@@ -1,4 +1,4 @@
-package org.dylangraham.popularmovies;
+package org.dylangraham.popularmovies.presenter;
 
 
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.dylangraham.popularmovies.BuildConfig;
+import org.dylangraham.popularmovies.R;
 import org.dylangraham.popularmovies.model.MDBAPI;
 import org.dylangraham.popularmovies.model.MovieItem;
 import org.dylangraham.popularmovies.model.MovieResult;
