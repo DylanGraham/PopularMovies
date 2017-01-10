@@ -1,4 +1,4 @@
-package org.dylangraham.popularmovies;
+package org.dylangraham.popularmovies.model;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

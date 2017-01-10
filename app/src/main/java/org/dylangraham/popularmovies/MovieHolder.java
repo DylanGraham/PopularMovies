@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.dylangraham.popularmovies.model.MovieItem;
+
 public class MovieHolder extends RecyclerView.ViewHolder {
 
     private MovieItem movieItem;

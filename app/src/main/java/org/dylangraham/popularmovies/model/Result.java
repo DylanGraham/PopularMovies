@@ -1,4 +1,4 @@
-package org.dylangraham.popularmovies;
+package org.dylangraham.popularmovies.model;
 
 import java.util.ArrayList;
 import java.util.List;

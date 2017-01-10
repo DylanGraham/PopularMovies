@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
+import org.dylangraham.popularmovies.model.MovieItem;
+
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
@@ -28,7 +30,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
     @Override
     public void onBindViewHolder(MovieHolder holder, int position) {
         MovieItem movie = movieItems.get(position);
-        String url = movie.imageURL;
+        String url = movie.getImageURL();
         Context context = holder.itemView.getContext();
         holder.bindMovie(movie);
 

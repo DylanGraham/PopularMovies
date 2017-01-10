@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.github.florent37.picassopalette.PicassoPalette;
 import com.squareup.picasso.Picasso;
 
+import org.dylangraham.popularmovies.model.MovieItem;
+
 public class DetailActivity extends AppCompatActivity {
 
     @Override
@@ -30,15 +32,15 @@ public class DetailActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         MovieItem movieItem = b.getParcelable("movieItemsParcel");
         if (getSupportActionBar() != null && movieItem != null) {
-            getSupportActionBar().setTitle(movieItem.movieName);
+            getSupportActionBar().setTitle(movieItem.getMovieName());
 
             ScrollView detailScroll = (ScrollView) findViewById(R.id.scrollview_detail);
 
             TextView title = (TextView) findViewById(R.id.detail_title);
-            title.setText(movieItem.movieName);
+            title.setText(movieItem.getMovieName());
 
             TextView year = (TextView) findViewById(R.id.detail_year);
-            String[] date = movieItem.releaseDate.split("-");
+            String[] date = movieItem.getReleaseDate().split("-");
             if (date[0] != null) {
                 year.setText(date[0]);
             } else {
@@ -46,14 +48,14 @@ public class DetailActivity extends AppCompatActivity {
             }
 
             TextView average = (TextView) findViewById(R.id.detail_average);
-            average.setText(movieItem.average);
+            average.setText(movieItem.getAverage());
 
             TextView overview = (TextView) findViewById(R.id.detail_overview);
-            overview.setText(movieItem.overview);
+            overview.setText(movieItem.getOverview());
 
             ImageView poster = (ImageView) findViewById(R.id.detail_poster);
-            Picasso.with(this).load(movieItem.imageURL).error(R.mipmap.ic_launcher).into(poster,
-                    PicassoPalette.with(movieItem.imageURL, poster)
+            Picasso.with(this).load(movieItem.getImageURL()).error(R.mipmap.ic_launcher).into(poster,
+                    PicassoPalette.with(movieItem.getImageURL(), poster)
                             .use(PicassoPalette.Profile.MUTED_LIGHT)
                             .intoBackground(detailScroll)
                             .intoTextColor(title, PicassoPalette.Swatch.BODY_TEXT_COLOR)
@@ -63,7 +65,7 @@ public class DetailActivity extends AppCompatActivity {
 
             ImageView detailImage = (ImageView) findViewById(R.id.detail_image);
             Picasso.with(this)
-                    .load(movieItem.backdropURL)
+                    .load(movieItem.getBackdropURL())
                     .error(R.mipmap.ic_launcher)
                     .into(detailImage);
         }
