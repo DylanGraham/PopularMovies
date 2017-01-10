@@ -5,6 +5,7 @@ import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.dylangraham.popularmovies.view.MainActivity;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;

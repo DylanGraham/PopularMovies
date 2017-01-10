@@ -1,4 +1,4 @@
-package org.dylangraham.popularmovies;
+package org.dylangraham.popularmovies.presenter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.dylangraham.popularmovies.R;
+import org.dylangraham.popularmovies.view.DetailActivity;
 import org.dylangraham.popularmovies.model.MovieItem;
 
 public class MovieHolder extends RecyclerView.ViewHolder {

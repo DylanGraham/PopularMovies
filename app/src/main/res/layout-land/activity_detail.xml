@@ -9,7 +9,7 @@
         android:id="@+id/relative_layout_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="org.dylangraham.popularmovies.DetailActivity">
+        tools:context="org.dylangraham.popularmovies.view.DetailActivity">
 
         <ImageView
             android:id="@+id/detail_image"
