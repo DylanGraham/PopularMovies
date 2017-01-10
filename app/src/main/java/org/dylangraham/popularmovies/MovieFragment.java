@@ -13,6 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.dylangraham.popularmovies.model.MDBAPI;
+import org.dylangraham.popularmovies.model.MovieItem;
+import org.dylangraham.popularmovies.model.MovieResult;
+import org.dylangraham.popularmovies.model.Result;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
