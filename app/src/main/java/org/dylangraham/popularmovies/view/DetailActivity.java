@@ -24,9 +24,7 @@ public class DetailActivity extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+        if (actionBar != null) actionBar.hide();
 
         setContentView(R.layout.activity_detail);
 
@@ -55,6 +53,7 @@ public class DetailActivity extends AppCompatActivity {
             overview.setText(movieItem.getOverview());
 
             ImageView poster = (ImageView) findViewById(R.id.detail_poster);
+
             Picasso.with(this).load(movieItem.getImageURL()).error(R.mipmap.ic_launcher).into(poster,
                     PicassoPalette.with(movieItem.getImageURL(), poster)
                             .use(PicassoPalette.Profile.MUTED_LIGHT)
