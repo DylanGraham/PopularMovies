@@ -1,4 +1,4 @@
-package org.dylangraham.popularmovies.presenter;
+package org.dylangraham.popularmovies.view;
 
 import android.content.Context;
 import android.content.Intent;
